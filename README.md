@@ -4,6 +4,7 @@ This is a bot of ChatGPt with some more feature like you can choose any moel you
 ### The thing i added in this chatbot is that you can selected any model from the given models of openAi which is not possible in the oroginal one.
 ### The Best of the working versions is the text-davinci-03 model and it is set as default, you can try other models and check their efficiency also.
 ### You can choose one of the two themes light and dark depending on you choice the original one doesnt give you that. 
+### Since this chatbot is based on openAi api's sometimes some of the models do not work as excpected so if you see that you do not get result after some time change the model and rerun the prompt or clear the chat.
 
 
 
