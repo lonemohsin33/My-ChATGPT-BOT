@@ -21,7 +21,8 @@ app.get('/models', async (req, res) => {
       
     const response = await openai.listEngines();
     res.json({models:response.data.data})
-  } catch (err) {
+  }
+  catch (err) {
     res.status(500).json({ message: err.message })
     
   }
@@ -36,7 +37,7 @@ app.post("/chat", async (req, res) => {
     let { message, model } = req.body;
     console.log(message)
 
-    model = model.trim()
+    model = model?.trim()
 
     console.log(model)
 
@@ -44,11 +45,13 @@ app.post("/chat", async (req, res) => {
     let response = await openai.createCompletion(
       {model : `${model}`,
       prompt : `${message}`,
-      temperature : 0.3,
+      temperature : 0.5,
       max_tokens : 1000,
       top_p : 1,
       frequency_penalty : 0.5,
-      presence_penalty : 0,}
+        presence_penalty: 0,
+      }
+      
       );
       console.log(response.data.choices[0].text.trim());
       res.json({ message: response.data.choices[0].text.trim() });
