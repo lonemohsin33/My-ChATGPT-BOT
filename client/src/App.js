@@ -1,34 +1,24 @@
-
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 
+import axios from 'axios';
+import './app.css';
 
-import axios from 'axios'
-import './app.css'
-
-import {
-
-  HStack,
-  Input,
-
-  Button,
- 
-  
-  Stack,
-} from '@chakra-ui/react';
-import React, { useEffect, useState, useRef} from 'react';
+import { HStack, Input, Button, Stack } from '@chakra-ui/react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { ReactComponent as Send } from './utils/send-svgrepo-com (1).svg';
 
 import DrawerExample from './components/DrawerExample';
 import Content from './components/Content';
 
-
-
+// let APIURL = 'https://chatgpt-2ttj.onrender.com';
 
 function App() {
   const [ntext, setText] = useState('');
-  const [chat, setChat]= useState([{'user':'bot', message:'What can i do for You, Today?'}])
-  const [models, setModels]= useState([])
+  const [chat, setChat] = useState([
+    { user: 'bot', message: 'What can i do for You, Today?' },
+  ]);
+  const [models, setModels] = useState([]);
 
   const [curModel, setCurModel] = useState('text-davinci-003');
   const dummy = useRef(null);
@@ -36,20 +26,15 @@ function App() {
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
 
-  
-
- 
-  
-  
   const handleSubmit = async e => {
     e.preventDefault();
-    
+
     let chatLog = [...chat, { user: 'user', message: `${ntext}` }];
     await setChat(chatLog);
     await setText('');
     const messages = chatLog.map(message => message.message).join('\n');
 
-    let response = await axios.post('http://localhost:4000/chat', {
+    let response = await axios.post(`https://chatgpt-2ttj.onrender.com/chat`, {
       message: `${messages}`,
       model: `${curModel}`,
     });
@@ -60,27 +45,20 @@ function App() {
       ...chatLog,
       { user: 'bot', message: `${response.data.message}` },
     ]);
-   
-      
-    
-    
-    
   };
-   const handleclearClick = () => {
-     setChat([]);
-   };
+  const handleclearClick = () => {
+    setChat([]);
+  };
   const fetchModels = () => {
-    fetch('http://localhost:4000/models')
+    fetch(`https://chatgpt-2ttj.onrender.com/models`)
       .then(res => res.json())
-      .then(data => setModels(data.models))
-    
-  }
+      .then(data => setModels(data.models));
+  };
   useEffect(() => {
-    fetchModels()
-
-  }, [])
+    fetchModels();
+  }, []);
   return (
-    <Stack style={{height:'90vh', overflowY:'scroll' }} className={'scroll'} >
+    <Stack style={{ height: '90vh', overflowY: 'scroll' }} className={'scroll'}>
       <ColorModeSwitcher />
       <DrawerExample
         handleclearClick={handleclearClick}
@@ -88,9 +66,9 @@ function App() {
         curModel={curModel}
         setCurModel={setCurModel}
       />
-      <Stack >
+      <Stack>
         {chat.map((elem, index) => (
-          <Content chats={elem} key={index}  />
+          <Content chats={elem} key={index} />
         ))}
         <div ref={dummy} />
       </Stack>
@@ -134,7 +112,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
