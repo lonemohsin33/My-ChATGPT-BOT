@@ -1,4 +1,7 @@
 # My-ChATGPT-BOT
+
+### Check it here ----> https://chatgpt-clone-og.netlify.app/
+
 This is a bot of ChatGPt with some more feature like you can choose any moel you want depending on your need?
 
 ### The thing i added in this chatbot is that you can selected any model from the given models of openAi which is not possible in the oroginal one.
@@ -18,7 +21,7 @@ This is a bot of ChatGPt with some more feature like you can choose any moel you
 
 # Using React
 
-### I have used react-hooks like useEffect to render the models on load.
+### I have used react-hooks like useEffect to fetch the models on mount.
 
 ### I have used chakra ui to set most of my designs with little Css. 
 
